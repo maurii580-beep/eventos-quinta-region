@@ -19,7 +19,7 @@ export default function HomePage() {
             Panoramas en la 5ª Región
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            ¿Qué hacer en Valparaíso y la Región?
+            Eventos y actividades en la V Región.
           </h1>
           <p className="mt-2 text-slate-600 max-w-xl text-sm sm:text-base">
             Cartelera actualizada diariamente con conciertos, cultura, ferias y actividades en Viña, Valpo, Quilpué y alrededores.
