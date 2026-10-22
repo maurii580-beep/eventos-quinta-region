@@ -1,9 +1,12 @@
 // services/eventos.ts
+import { connection } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 import { Evento } from '@/types/evento';
 
 export async function getEventosPublicados(): Promise<Evento[]> {
-  // Traemos los eventos publicados ordenados cronológicamente desde hoy en adelante
+  // Le indica a Next.js (Cache Components) que este llamado corre en tiempo de petición
+  await connection();
+
   const hoy = new Date().toISOString().split('T')[0];
 
   const { data, error } = await supabase
@@ -18,5 +21,5 @@ export async function getEventosPublicados(): Promise<Evento[]> {
     return [];
   }
 
-  return data as Evento[];
+  return (data as Evento[]) || [];
 }
