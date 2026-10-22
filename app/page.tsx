@@ -7,7 +7,6 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
-      {/* Header & Hero */}
       <header className="border-b border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
           <div className="inline-block px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold mb-3">
@@ -22,7 +21,6 @@ export default async function HomePage() {
         </div>
       </header>
 
-      {/* Contenido Principal con Datos Reales */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         <EventosContainer eventosIniciales={eventos} />
       </main>
