@@ -1,5 +1,9 @@
+// app/page.tsx
 import { getEventosPublicados } from '@/services/eventos';
 import EventosContainer from '@/components/EventosContainer';
+
+// Le indica a Next.js que consulte los datos frescos en cada solicitud (sin romper el prerender)
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const eventos = await getEventosPublicados();
