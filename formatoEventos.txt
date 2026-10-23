@@ -1,0 +1,56 @@
+insert into eventos (
+  titulo,
+  slug,
+  descripcion,
+  categoria,
+  comuna,
+  lugar,
+  direccion,
+  fecha_inicio,
+  fecha_fin,
+  hora,
+  es_gratuito,
+  precio,
+  link_entradas,
+  imagen_url,
+  fuente,
+  publicado
+)
+select
+  titulo,
+  slug,
+  descripcion,
+  categoria,
+  comuna,
+  lugar,
+  direccion,
+  fecha_inicio::date,
+  fecha_fin::date,
+  hora,
+  coalesce(es_gratuito, false),
+  precio,
+  link_entradas,
+  imagen_url,
+  fuente,
+  coalesce(publicado, true)
+from json_populate_recordset(null::eventos, '
+[
+  ... TU LISTA JSON AQUÍ ...
+]
+')
+on conflict (slug) do update set
+  titulo = excluded.titulo,
+  descripcion = excluded.descripcion,
+  categoria = excluded.categoria,
+  comuna = excluded.comuna,
+  lugar = excluded.lugar,
+  direccion = excluded.direccion,
+  fecha_inicio = excluded.fecha_inicio,
+  fecha_fin = excluded.fecha_fin,
+  hora = excluded.hora,
+  es_gratuito = excluded.es_gratuito,
+  precio = excluded.precio,
+  link_entradas = excluded.link_entradas,
+  imagen_url = excluded.imagen_url,
+  fuente = excluded.fuente,
+  publicado = excluded.publicado;
