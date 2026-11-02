@@ -3,7 +3,8 @@
 
 import { 
   Search, Grid, List, X, ChevronDown,
-  Clapperboard, Music, Palette, Mic, Utensils, Trophy, Sparkles
+  Clapperboard, Music, Palette, Mic, Utensils, Trophy, Sparkles,
+  PartyPopper, Store, Ticket, Smile // Nuevos íconos agregados
 } from 'lucide-react';
 
 interface FiltrosProps {
@@ -43,6 +44,11 @@ const CATEGORIAS = [
   { id: 'Comedia', label: 'Comedia', icon: Mic, colores: 'bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100' },
   { id: 'Gastronomía', label: 'Gastronomía', icon: Utensils, colores: 'bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100' },
   { id: 'Deporte', label: 'Deporte', icon: Trophy, colores: 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' },
+  // Nuevos filtros
+  { id: 'Fiesta', label: 'Fiesta', icon: PartyPopper, colores: 'bg-pink-50 text-pink-700 border-pink-200 hover:bg-pink-100' },
+  { id: 'Feria', label: 'Feria', icon: Store, colores: 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100' },
+  { id: 'Festival', label: 'Festival', icon: Ticket, colores: 'bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100' },
+  { id: 'Infantil', label: 'Infantil', icon: Smile, colores: 'bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-100' },
 ];
 
 export default function Filtros({
