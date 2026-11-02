@@ -14,53 +14,44 @@ interface Props {
 export default function EventosContainer({ eventosIniciales }: Props) {
   const [busqueda, setBusqueda] = useState('');
   const [filtroFecha, setFiltroFecha] = useState('Todos');
-  const [comunaSeleccionada, setComunaSeleccionada] = useState('Todas');
+  const [comunaSeleccionada, setComunaSeleccionada] = useState('Todas las comunas');
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
   const [soloGratis, setSoloGratis] = useState(false);
   const [vista, setVista] = useState<'grid' | 'agenda'>('grid');
 
   const cumpleFiltroFecha = (fechaStr: string) => {
     if (filtroFecha === 'Todos') return true;
-
     const fechaEvento = new Date(fechaStr + 'T00:00:00');
     const hoy = new Date();
     hoy.setHours(0, 0, 0, 0);
 
-    if (filtroFecha === 'Hoy') {
-      return fechaEvento.getTime() === hoy.getTime();
-    }
-
+    if (filtroFecha === 'Hoy') return fechaEvento.getTime() === hoy.getTime();
     if (filtroFecha === 'Fin de semana') {
-      const diaSemana = hoy.getDay();
-      const diasHastaViernes = (5 - diaSemana + 7) % 7;
+      const diasHastaViernes = (5 - hoy.getDay() + 7) % 7;
       const viernes = new Date(hoy);
       viernes.setDate(hoy.getDate() + diasHastaViernes);
-
       const domingo = new Date(viernes);
       domingo.setDate(viernes.getDate() + 2);
-
       return fechaEvento >= viernes && fechaEvento <= domingo;
     }
-
     if (filtroFecha === 'Este mes') {
-      return (
-        fechaEvento.getMonth() === hoy.getMonth() &&
-        fechaEvento.getFullYear() === hoy.getFullYear()
-      );
+      return fechaEvento.getMonth() === hoy.getMonth() && fechaEvento.getFullYear() === hoy.getFullYear();
     }
-
     return true;
   };
 
   const limpiarFiltros = () => {
     setBusqueda('');
     setFiltroFecha('Todos');
-    setComunaSeleccionada('Todas');
+    setComunaSeleccionada('Todas las comunas');
+    setCategoriaSeleccionada('Todas');
     setSoloGratis(false);
   };
 
   const eventosFiltrados = eventosIniciales.filter((evento) => {
     if (soloGratis && !evento.es_gratuito) return false;
-    if (comunaSeleccionada !== 'Todas' && evento.comuna !== comunaSeleccionada) return false;
+    if (comunaSeleccionada !== 'Todas las comunas' && evento.comuna !== comunaSeleccionada) return false;
+    if (categoriaSeleccionada !== 'Todas' && evento.categoria.toLowerCase() !== categoriaSeleccionada.toLowerCase()) return false;
     if (!cumpleFiltroFecha(evento.fecha_inicio)) return false;
 
     if (busqueda.trim() !== '') {
@@ -87,6 +78,8 @@ export default function EventosContainer({ eventosIniciales }: Props) {
         setComunaSeleccionada={setComunaSeleccionada}
         soloGratis={soloGratis}
         setSoloGratis={setSoloGratis}
+        categoriaSeleccionada={categoriaSeleccionada}
+        setCategoriaSeleccionada={setCategoriaSeleccionada}
         vista={vista}
         setVista={setVista}
         totalResultados={eventosFiltrados.length}
